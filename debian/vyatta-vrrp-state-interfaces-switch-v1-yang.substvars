@@ -1,0 +1,3 @@
+yang:Depends=vyatta-interfaces-v1-yang, vyatta-interfaces-switch-v1-yang, vyatta-vrrp-interfaces-switch-v1-yang, vyatta-vrrp-state-v1-yang
+misc:Depends=
+misc:Pre-Depends=

@@ -1,0 +1,6 @@
+./scripts/bin/vyatta_show_vrrp.py
+./scripts/bin/vyatta_vrrp_op_commands.py
+./scripts/sbin/vyatta-ipsec-notify.sh
+./scripts/sbin/vyatta-vrrp-notify
+./scripts/tech-support/2810-vyatta-vrrp
+./tmplscripts

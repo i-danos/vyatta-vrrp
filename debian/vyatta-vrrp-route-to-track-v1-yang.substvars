@@ -1,0 +1,3 @@
+yang:Depends=configd-v1-yang, vyatta-vrrp-v1-yang, vyatta-types-v1-yang
+misc:Depends=
+misc:Pre-Depends=

@@ -1,0 +1,74 @@
+Metadata-Version: 2.4
+Name: vyatta-vrrp-vci
+Version: 3.8
+Summary: Vyatta Component Infrastructure module to configure VRRP on DANOS and it's derivatives
+Home-page: https://github.com/danos/vyatta-vrrp
+Author-email: DL-vyatta-help@att.com
+Maintainer: Vyatta Package Maintainers
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: gi
+Requires-Dist: pydbus
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: maintainer
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# DANOS VRRP VCI package
+
+This package contains the software to configured and operate VRRP functionality in DANOS and it's derivatives.
+
+## Getting started
+
+The software here is written in python3 and requires features from python 3.6, if you have an earlier version of python you will not be able to use this software.
+
+### Prerequisites
+To develop on this project you need:
+* python3 >= 3.6
+* pipenv (pip3 install pipenv or sudo apt install pipenv)
+
+Other dependencies are taken care of in the Pipfile.
+Pipenv documentation can be found [here](https://pipenv.pypa.io/en/latest/) if you have trouble installing it.
+
+
+### Setting up a dev environment
+
+To development this software and run unit tests you will need to do the following after setting up the prerequisites.
+
+From the top level of the git repo:
+
+1. Setup virtual environment: pipenv install
+1. Enter virtual environment: pipenv shell
+1. Setup development environment: pipenv install --dev
+
+You will then have everything you need to start developing.
+
+## Testing
+
+Tests should be written for every change and we should strive for 100% coverage
+
+### Running unit tests
+I recommend adding an alias like this to your aliases file:
+    alias run_test="ptw -- -vv -s --flake8 --pep8 --spec --cov=vyatta/"
+
+Calling this from the top level of the git repo will also have the tests run every time a file is written.
+
+Tmux/screen with the test in one panel and the code in another is a good workflow for this, or use an IDE like VSCode with the tests running in the shell underneath.
+
+Pull Requests into the repository will require output from the following command:
+    pytest -s --flake8 --cov=vyatta/
+
+
+The unit tests are also linked into the build process and if the tests fail then the build fails.
+
+At some point in the future the unit tests will also be run via a CI service.
+
+### Running acceptance tests
+TODO

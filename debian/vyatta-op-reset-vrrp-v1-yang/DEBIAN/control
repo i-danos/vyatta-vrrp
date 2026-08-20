@@ -1,0 +1,11 @@
+Package: vyatta-op-reset-vrrp-v1-yang
+Source: vyatta-vrrp
+Version: 3.8
+Architecture: all
+Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
+Installed-Size: 20
+Depends: vyatta-opd-extensions-v1-yang, vyatta-op-reset-v1-yang
+Section: contrib/net
+Priority: optional
+Description: vyatta-op-reset-vrrp-v1 module
+ Reset commands for vyatta-vrrp
