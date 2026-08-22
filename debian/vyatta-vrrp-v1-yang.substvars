@@ -1,3 +1,0 @@
-yang:Depends=vyatta-types-v1-yang, configd-v1-yang, vyatta-interfaces-v1-yang, vyatta-interfaces-dataplane-v1-yang, vyatta-interfaces-bonding-v1-yang
-misc:Depends=
-misc:Pre-Depends=

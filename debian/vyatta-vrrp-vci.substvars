@@ -1,4 +1,0 @@
-python3:Depends=python3-pydbus, python3:any, python3:any (>= 3.6~)
-misc:Depends=deb-vci-helper
-yang:Depends=
-misc:Pre-Depends=
