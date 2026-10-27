@@ -1,3 +1,15 @@
+vyatta-vrrp (3.8danos1) unstable; urgency=medium
+
+  * Read back an empty config when the component has never been configured.
+    set() already treats an empty config as "nothing to do" and never writes
+    the keepalived config file, but get() raised FileNotFoundError on the
+    missing file. configd records that failed read-back as "read-back
+    verify_error", which puts the component in the commit journal's dirty set
+    permanently -- the journal then never becomes clean, and a clean journal is
+    what the crash-recovery protocol depends on.
+
+ -- DANOS build <danos@localhost>  Tue, 27 Oct 2026 16:20:00 -0700
+
 vyatta-vrrp (3.8) unstable; urgency=medium
 
   * Bugfix/Update show vrrp sync for new data format
