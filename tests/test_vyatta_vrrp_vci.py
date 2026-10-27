@@ -26,6 +26,15 @@ class TestVyattaVrrpVci:
         expected = json.dumps(simple_config)
         assert test_config.get() == expected
 
+    def test_vci_config_get_missing_file_returns_empty(
+            self, mock_pydbus, test_config, pydbus_fakes, tmp_path):
+        """read-back of a never-configured component must not raise."""
+        from vyatta.vrrp_vci.keepalived.config_file import KeepalivedConfig
+        test_config._conf_obj = KeepalivedConfig(
+            str(tmp_path / "not-written-yet.conf"))
+        expected = json.dumps({})
+        assert test_config.get() == expected
+
     def test_vci_state_get(self, complete_state_yang,
                            mock_pydbus, test_state,
                            tmp_file_keepalived_config):

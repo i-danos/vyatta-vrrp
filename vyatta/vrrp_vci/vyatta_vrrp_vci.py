@@ -91,7 +91,22 @@ class Config(vci.Config):
         return
 
     def get(self) -> Dict[str, Any]:
-        file_config: str = self._conf_obj.read_config()
+        try:
+            file_config: str = self._conf_obj.read_config()
+        except FileNotFoundError:
+            # set() treats an empty config as "nothing to do" and returns
+            # without writing the file, so a component that has never been
+            # configured has no config file to read back. That is an empty
+            # config, not a failure: letting FileNotFoundError escape makes
+            # configd's read-back fail, which records the component as
+            # "read-back verify_error" in the commit journal's dirty set, and
+            # the journal then never becomes clean again -- a clean journal is
+            # what the crash-recovery protocol relies on.
+            self.log.info(
+                f"{self._conf_obj.config_file_path()} does not exist yet, "
+                "returning the empty config"
+            )
+            file_config = ""
         yang_repr: Dict[str, Any] = \
             self._conf_obj.convert_to_vci_format(file_config)
         self.log.info(
