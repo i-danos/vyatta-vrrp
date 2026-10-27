@@ -1,4 +1,4 @@
-vyatta-vrrp (3.8danos1) unstable; urgency=medium
+vyatta-vrrp (3.8+danos1) unstable; urgency=medium
 
   * Read back an empty config when the component has never been configured.
     set() already treats an empty config as "nothing to do" and never writes
