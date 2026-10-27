@@ -3,6 +3,9 @@
 #VERBOSE=1
 export PYBUILD_NAME=vyatta-vrrp-vci
 export PYBUILD_TEST_PYTEST=1
+# --pep8 needs python3-pytest-pep8, which Debian 13 no longer ships (the plugin
+# is unmaintained upstream and its pytest hooks were removed). Style is not what
+# this package's tests are for; keep the coverage run, drop the plugin.
 export PYBUILD_TEST_ARGS=--cov=vyatta/
 export PYBUILD_DISABLE_python2=1
 
