@@ -1,3 +1,18 @@
+vyatta-vrrp (3.8+danos2) unstable; urgency=medium
+
+  * set(): treat the empty configuration {} as "no interfaces" instead of
+    raising KeyError 'vyatta-interfaces-v1:interfaces'. configd passes {} to
+    the component when the last interface configuration is deleted; check()
+    already returned early for it, but set() called sanitize_vrrp_config()
+    first, which needs the key. commitd reported the KeyError as
+    "component net.vyatta.vci.vrrp.v1 failed to apply the configuration",
+    compensated, and rejected the whole commit -- any configuration that
+    cleared every interface (a test-suite "clear configuration" step, a
+    "delete interfaces dataplane") could not be committed once a VRRP group
+    had been configured. Any other dictionary without the key still raises.
+
+ -- DANOS build <danos@localhost>  Mon, 02 Nov 2026 03:10:48 -0800
+
 vyatta-vrrp (3.8+danos1) unstable; urgency=medium
 
   * Read back an empty config when the component has never been configured.

@@ -226,6 +226,43 @@ class TestVyattaVrrpVci:
         expected = False
         assert conf_path.exists() == expected
 
+    def test_vci_config_set_empty_dict_is_nothing_to_do(
+            self, mock_pydbus, test_config):
+        """configd hands the component {} -- no interfaces key at all --
+        when the last interface configuration is deleted. check() already
+        accepts that; set() used to raise KeyError
+        'vyatta-interfaces-v1:interfaces', which commitd reports as a
+        failed component and so rejects the whole commit."""
+        test_config.set({})
+        conf_path = Path(
+            test_config._conf_obj.config_file_path())
+
+        assert conf_path.exists() is False
+
+    def test_vci_config_set_empty_dict_cleans_up_file(
+            self, mock_pydbus, test_config, simple_config):
+        import vyatta.vrrp_vci.keepalived.dbus.process_control as process_ctrl
+        process_control = process_ctrl.ProcessControl()
+        process_control.keepalived_proxy_obj.SubState = "running"
+
+        test_config.set(simple_config)
+        conf_path = Path(
+            test_config._conf_obj.config_file_path())
+        assert conf_path.exists() is True
+
+        test_config.pc.keepalived_proxy_obj.SubState = "running"
+        test_config.set({})
+
+        assert conf_path.exists() is False
+
+    def test_vci_config_set_malformed_config_still_raises(
+            self, mock_pydbus, test_config):
+        """Only the empty configuration means 'nothing to do'; a non-empty
+        dictionary without the interfaces key is a real error and must not
+        be swallowed."""
+        with pytest.raises(KeyError):
+            test_config.set({"vyatta-vrrp-v1:unexpected": {}})
+
     def test_vci_config_check_no_config(
             self, mock_pydbus, test_config,
             mock_show_version_rpc_kvm):

@@ -62,6 +62,15 @@ class Config(vci.Config):
         self.pc = ProcessControl()
 
     def set(self, conf: Dict[str, Any]) -> None:
+        # configd hands the component {} -- not {interfaces: {}} -- when the
+        # last interface configuration has been deleted (check() above
+        # already accepts that). Treat it as "no interfaces", which the
+        # branch below turns into a shutdown; sanitize_vrrp_config() needs the
+        # key and would raise KeyError, failing the component and with it the
+        # whole commit. Only the empty configuration is special-cased: any
+        # other dictionary without the key is still an error.
+        if conf == {}:
+            conf = {util.INTERFACE_YANG_NAME: {}}
         conf = util.sanitize_vrrp_config(conf)
 
         # If all the default config has been removed and
